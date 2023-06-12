@@ -17,69 +17,105 @@ return {
     },
   },
 
-  -- Set colorscheme to use
-  colorscheme = "astrodark",
+  colorscheme = "terafox",
 
-  -- Diagnostics configuration (for vim.diagnostics.config({...})) when diagnostics are on
   diagnostics = {
     virtual_text = true,
+    signs = true,
     underline = true,
+    severity_sort = false,
   },
 
   lsp = {
-    -- customize lsp formatting options
     formatting = {
-      -- control auto formatting on save
       format_on_save = {
-        enabled = true, -- enable or disable format on save globally
-        allow_filetypes = { -- enable format on save for specified filetypes only
-          -- "go",
-        },
-        ignore_filetypes = { -- disable format on save for specified filetypes
-          -- "python",
+        enabled = true,
+        ignore_filetypes = {
+          "elixir",
         },
       },
-      disabled = { -- disable formatting capabilities for the listed language servers
-        -- disable lua_ls formatting capability if you want to use StyLua to format your lua code
-        -- "lua_ls",
+      disabled = {
+        "lua_ls",
       },
-      timeout_ms = 1000, -- default format timeout
+      timeout_ms = 3000,
       -- filter = function(client) -- fully override the default formatting function
       --   return true
       -- end
     },
     -- enable servers that you already have installed without mason
-    servers = {
-      -- "pyright"
+    servers = {},
+    config = {
+      clangd = function(opts)
+        opts.cmd = {
+          "clangd",
+          "--offset-encoding=utf-16",
+        }
+        return opts
+      end,
     },
   },
 
-  -- Configure require("lazy").setup() options
   lazy = {
     defaults = { lazy = true },
     performance = {
       rtp = {
         -- customize default disabled vim plugins
-        disabled_plugins = { "tohtml", "gzip", "matchit", "zipPlugin", "netrwPlugin", "tarPlugin" },
+        disabled_plugins = {
+          "2html_plugin",
+          "bugreport",
+          "compiler",
+          -- 'ftplugin',
+          "getscript",
+          "getscriptPlugin",
+          "gzip",
+          "logiPat",
+          "logipat",
+          "matchit",
+          "matchparen",
+          -- 'netrw',
+          -- 'netrwFileHandlers',
+          -- 'netrwPlugin',
+          -- 'netrwSettings',
+          "optwin",
+          "remote_plugins",
+          "rplugin",
+          "rrhelper",
+          "synmenu",
+          "syntax",
+          "tar",
+          "tarPlugin",
+          "tohtml",
+          "tutor",
+          "tutor_mode_plugin",
+          "vimball",
+          "vimballPlugin",
+          "matchit",
+          "zip",
+          "zipPlugin",
+        },
       },
     },
   },
 
-  -- This function is run last and is a good place to configuring
-  -- augroups/autocommands and custom filetypes also this just pure lua so
-  -- anything that doesn't fit in the normal config locations above can go here
   polish = function()
-    -- Set up custom filetypes
-    -- vim.filetype.add {
-    --   extension = {
-    --     foo = "fooscript",
-    --   },
-    --   filename = {
-    --     ["Foofile"] = "fooscript",
-    --   },
-    --   pattern = {
-    --     ["~/%.config/foo/.*"] = "fooscript",
-    --   },
-    -- }
+    --- Automatic toggle relative numbers between modes
+    local function relativenumber_autotoggle()
+      local group = vim.api.nvim_create_augroup("RelativeNumberToggle", { clear = true })
+
+      vim.api.nvim_create_autocmd({ "BufEnter", "FocusGained", "InsertLeave", "WinEnter" }, {
+        pattern = "*",
+        group = group,
+        command = 'if &nu && mode() != "i" | set rnu | endif',
+      })
+
+      vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave" }, {
+        pattern = "*",
+        group = group,
+        command = "if &nu | set nornu | endif",
+      })
+    end
+    relativenumber_autotoggle()
+
+    Hard_remap_mappings() -- final remap default mappings
   end,
 }

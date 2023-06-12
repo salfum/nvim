@@ -1,12 +1,15 @@
 return {
-  -- You can also add new plugins here as well:
-  -- Add plugins, the lazy syntax
-  -- "andweeb/presence.nvim",
-  -- {
-  --   "ray-x/lsp_signature.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("lsp_signature").setup()
-  --   end,
-  -- },
+  { "mg979/vim-visual-multi", event = "User AstroFile" },
+  { "AckslD/nvim-neoclip.lua", event = "User VeryLazy", opts = {} },
+  {
+    "CosmicNvim/cosmic-ui",
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+    opts = {},
+  },
+  { "ivanesmantovich/xkbswitch.nvim", event = "User AstroFile", opts = {} },
+  { "chaoren/vim-wordmotion", event = "User AstroFile" },
+  { "nvim-treesitter/nvim-treesitter-textobjects", event = "User AstroFile" },
+  { "kevinhwang91/nvim-hlslens", event = "User AstroFile", opts = {} },
 }

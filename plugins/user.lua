@@ -12,4 +12,5 @@ return {
   { "chaoren/vim-wordmotion", event = "User AstroFile" },
   { "nvim-treesitter/nvim-treesitter-textobjects", event = "User AstroFile" },
   { "kevinhwang91/nvim-hlslens", event = "User AstroFile", opts = {} },
+  { "KabbAmine/zeavim.vim", event = "User AstroFile" },
 }

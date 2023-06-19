@@ -25,6 +25,7 @@ return {
     ["<leader>b"] = { name = "Buffers" },
     ["<Tab>"] = { "<cmd>bnext<cr>" },
     ["<S-Tab>"] = { "<cmd>bprevious<cr>" },
+    ["<Leader>fd"] = { "<cmd>Zeavim<cr>", desc = "Find documentation" },
 
     -- Telescope mappings
     ["<Leader>fB"] = { "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Find fuzzy in current buffer" },

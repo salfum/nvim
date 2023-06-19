@@ -5,6 +5,10 @@ return {
   { import = "astrocommunity.colorscheme.nightfox-nvim", enabled = true },
   { import = "astrocommunity.syntax.hlargs-nvim" },
   { import = "astrocommunity.markdown-and-latex.markdown-preview-nvim" },
+  { import = "astrocommunity.scrolling.satellite-nvim" },
+  { import = "astrocommunity.project.nvim-spectre" },
+  { import = "astrocommunity.editing-support.todo-comments-nvim" },
+  { import = "astrocommunity.motion.leap-nvim" },
   -- langs
   { import = "astrocommunity.pack.python" },
   { import = "astrocommunity.pack.php" },

@@ -44,6 +44,7 @@ return {
       "surface",
       "toml",
       "typescript",
+      "vala",
       "vim",
       "vue",
       "zig",

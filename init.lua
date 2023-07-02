@@ -89,7 +89,6 @@ return {
           "tutor_mode_plugin",
           "vimball",
           "vimballPlugin",
-          "matchit",
           "zip",
           "zipPlugin",
         },

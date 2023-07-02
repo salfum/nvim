@@ -1,6 +1,6 @@
 local get_hlgroup = require("astronvim.utils").get_hlgroup
 -- get highlights from highlight groups
-local normal = get_hlgroup "Normal"
+local normal = get_hlgroup("Normal")
 local fg, bg = normal.fg, normal.bg
 local bg_alt = get_hlgroup("Visual").bg
 local green = get_hlgroup("String").fg

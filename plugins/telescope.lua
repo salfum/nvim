@@ -3,8 +3,8 @@ local file_ignore_patterns = {
   "deps",
 }
 
-local actions = require "telescope.actions"
-local action_state = require "telescope.actions.state"
+local actions = require("telescope.actions")
+local action_state = require("telescope.actions.state")
 local transform_mod = require("telescope.actions.mt").transform_mod
 
 local function multiopen(prompt_bufnr, method)
@@ -31,16 +31,16 @@ local function multiopen(prompt_bufnr, method)
   end
 end
 
-local custom_actions = transform_mod {
+local custom_actions = transform_mod({
   multi_selection_open_vertical = function(prompt_bufnr) multiopen(prompt_bufnr, "vertical") end,
   multi_selection_open_horizontal = function(prompt_bufnr) multiopen(prompt_bufnr, "horizontal") end,
   multi_selection_open_tab = function(prompt_bufnr) multiopen(prompt_bufnr, "tab") end,
   multi_selection_open = function(prompt_bufnr) multiopen(prompt_bufnr, "default") end,
-}
+})
 
 local function stopinsert(callback)
   return function(prompt_bufnr)
-    vim.cmd [[stopinsert]]
+    vim.cmd([[stopinsert]])
     vim.schedule(function() callback(prompt_bufnr) end)
   end
 end
@@ -77,12 +77,12 @@ return {
   opts = function()
     local get_icon = require("astronvim.utils").get_icon
 
-    require("telescope").load_extension "agrolens"
+    require("telescope").load_extension("agrolens")
 
     return {
       defaults = {
-        prompt_prefix = string.format("%s ", get_icon "Search"),
-        selection_caret = string.format("%s ", get_icon "Selected"),
+        prompt_prefix = string.format("%s ", get_icon("Search")),
+        selection_caret = string.format("%s ", get_icon("Selected")),
         path_display = { "truncate" },
         sorting_strategy = "ascending",
         layout_config = {

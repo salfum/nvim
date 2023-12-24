@@ -17,10 +17,10 @@ return {
     },
   },
 
-  colorscheme = "terafox",
+  colorscheme = "nightfox",
 
   diagnostics = {
-    virtual_text = true,
+    virtual_text = { only_current_line = true },
     signs = true,
     underline = true,
     severity_sort = false,
@@ -43,7 +43,9 @@ return {
       -- end
     },
     -- enable servers that you already have installed without mason
-    servers = {},
+    servers = {
+      "lexical",
+    },
     config = {
       clangd = function(opts)
         opts.cmd = {
@@ -51,6 +53,20 @@ return {
           "--offset-encoding=utf-16",
         }
         return opts
+      end,
+      lexical = function()
+        local lexical_config = {
+          filetypes = { "elixir", "eelixir" },
+          cmd = { os.getenv("LEXICAL_EXECUTABLE_PATH") },
+          settings = {},
+        }
+
+        return {
+          filetypes = lexical_config.filetypes,
+          cmd = lexical_config.cmd,
+          root_dir = require("lspconfig.util").root_pattern({ "mix.exs", ".git" }) or vim.loop.os_homedir(),
+          settings = lexical_config.settings,
+        }
       end,
     },
   },

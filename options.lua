@@ -1,4 +1,30 @@
-return {
+local custom = function()
+  local neovide = function()
+    if not vim.g.neovide then return {} end
+
+    -- local transparency = 0.98
+    -- local alpha = function() return string.format("%x", math.floor(255 * transparency)) end
+
+    return {
+      g = {
+        -- neovide_transparency = transparency, -- should be 0 if you want to unify transparency of content and title bar.
+        -- transparency = transparency,
+        -- neovide_background_color = "#0f1117" .. alpha(),
+        neovide_hide_mouse_when_typing = true,
+        neovide_underline_automatic_scaling = false,
+        neovide_scroll_animation_length = 0,
+        neovide_cursor_animation_length = 0.13,
+        neovide_cursor_animate_command_line = false,
+        neovide_cursor_vfx_mode = "pixiedust",
+        neovide_cursor_vfx_particle_density = 13.0,
+      },
+    }
+  end
+
+  return neovide()
+end
+
+local options = {
   opt = {
     relativenumber = true, -- sets vim.opt.relativenumber
     number = true, -- sets vim.opt.number
@@ -11,7 +37,7 @@ return {
     guifont = { "FiraCode Nerd Font Mono", ":h13" },
     history = 2000,
     jumpoptions = "stack",
-    lazyredraw = true,
+    lazyredraw = false,
     magic = true,
     sessionoptions = "curdir,help,tabpages,winsize",
     shada = "!,'300,<50,@100,s10,h",
@@ -22,6 +48,7 @@ return {
     sidescrolloff = 5,
     smartcase = true,
     smartindent = true,
+    swapfile = false,
   },
   g = {
     mapleader = " ", -- sets vim.g.mapleader
@@ -42,12 +69,5 @@ return {
     loaded_perl_provider = 0,
   },
 }
--- If you need more control, you can use the function()...end notation
--- return function(local_vim)
---   local_vim.opt.relativenumber = true
---   local_vim.g.mapleader = " "
---   local_vim.opt.whichwrap = vim.opt.whichwrap - { 'b', 's' } -- removing option from list
---   local_vim.opt.shortmess = vim.opt.shortmess + { I = true } -- add to option list
---
---   return local_vim
--- end
+
+return require("astronvim.utils").extend_tbl(options, custom())

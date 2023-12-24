@@ -1,7 +1,7 @@
 return {
   "nvim-neotest/neotest",
   config = function()
-    local neotest_ns = vim.api.nvim_create_namespace "neotest"
+    local neotest_ns = vim.api.nvim_create_namespace("neotest")
     vim.diagnostic.config({
       virtual_text = {
         format = function(diagnostic)
@@ -10,11 +10,11 @@ return {
         end,
       },
     }, neotest_ns)
-    require("neotest").setup {
+    require("neotest").setup({
       adapters = {
-        require "neotest-elixir",
+        require("neotest-elixir"),
       },
-    }
+    })
   end,
   ft = { "elixir" },
   dependencies = {

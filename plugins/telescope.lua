@@ -55,13 +55,33 @@ local custom_mappings = {
     ["<C-v>"] = stopinsert(custom_actions.multi_selection_open_vertical),
     ["<C-s>"] = stopinsert(custom_actions.multi_selection_open_horizontal),
     ["<C-t>"] = stopinsert(custom_actions.multi_selection_open_tab),
-    ["<CR>"] = stopinsert(custom_actions.multi_selection_open),
+    -- ["<CR>"] = stopinsert(custom_actions.multi_selection_open),
+    ["<CR>"] = function(pb)
+      local picker = action_state.get_current_picker(pb)
+      local multi = picker:get_multi_selection()
+      actions.select_default(pb) -- the normal enter behaviour
+      for _, j in pairs(multi) do
+        if j.path ~= nil then -- is it a file -> open it as well:
+          vim.cmd(string.format("%s %s", "edit", j.path))
+        end
+      end
+    end,
   },
   n = {
     ["<C-v>"] = custom_actions.multi_selection_open_vertical,
     ["<C-s>"] = custom_actions.multi_selection_open_horizontal,
     ["<C-t>"] = custom_actions.multi_selection_open_tab,
-    ["<CR>"] = custom_actions.multi_selection_open,
+    -- ["<CR>"] = custom_actions.multi_selection_open,
+    ["<CR>"] = function(pb)
+      local picker = action_state.get_current_picker(pb)
+      local multi = picker:get_multi_selection()
+      actions.select_default(pb) -- the normal enter behaviour
+      for _, j in pairs(multi) do
+        if j.path ~= nil then -- is it a file -> open it as well:
+          vim.cmd(string.format("%s %s", "edit", j.path))
+        end
+      end
+    end,
     ["q"] = actions.close,
   },
 }
@@ -78,6 +98,7 @@ return {
     local get_icon = require("astronvim.utils").get_icon
 
     require("telescope").load_extension("agrolens")
+    require("telescope").load_extension("egrepify")
 
     return {
       defaults = {
